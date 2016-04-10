@@ -7,7 +7,7 @@ Client application with [Bootstrap](http://getbootstrap.com/) and [jQuery](https
 * display 12 pokemon cards on initial load woth possibility load more cards
 * show detailed info for each pokemon card
 * adaptive styling (able to view this on all screen widths)
-* ~~filter visible pokemons by type~~
+* filter visible pokemons by type
 
 ### Demo:
 http://spatialhast.github.io/pokedex/

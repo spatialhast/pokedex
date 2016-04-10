@@ -1,0 +1,106 @@
+h1 {
+    text-align: center;
+    font-size: 48px;
+}
+
+h4 {
+    text-align: center;
+}
+
+.thumbnail.list {
+    height: 200px;
+    position: relative;
+    overflow: hidden;
+}
+
+.thumbnail.list:hover {
+    cursor: pointer;
+    background-color: rgba(75, 75, 75, 0.1);
+    border: 2px solid #777;
+}
+
+.thumbnail.details {
+    height: 525px;
+    width: 250px;
+}
+
+#pockemonLoadBtn {
+    width: 100%;
+}
+
+#loadButtonPanel {
+    display: none;
+}
+
+#loadingMain {
+    position: absolute;
+    background: white url('../img/loading.gif') no-repeat center center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 20001;
+}
+
+#loadingButton {
+    display: none;
+}
+
+.btn.btn-default.btn-xs { 
+    text-transform: capitalize;
+}
+
+.btn.btn-default.btn-xs.normal {
+    background-color: #fff;
+}
+.btn.btn-default.btn-xs.fire {
+    background-color: #c41208;
+}
+.btn.btn-default.btn-xs.bug {
+    background-color: #c45431;
+}
+.btn.btn-default.btn-xs.water {
+    background-color: #5bc0de;
+}
+.btn.btn-default.btn-xs.flying {
+    background-color: #2ee5f2;
+}
+.btn.btn-default.btn-xs.poison {
+    background-color: #6f8fe5;
+}  
+.btn.btn-default.btn-xs.steel {
+    background-color: #5c618b;
+}   
+.btn.btn-default.btn-xs.rock {
+    background-color: #f53c48;
+} 
+.btn.btn-default.btn-xs.ground {
+    background-color: #c9e1bd;
+}   
+.btn.btn-default.btn-xs.electric {
+    background-color: #f0ad4e;
+}
+.btn.btn-default.btn-xs.fighting {
+    background-color: #c237da;
+} 
+.btn.btn-default.btn-xs.dark {
+    background-color: #1203c8;
+}
+.btn.btn-default.btn-xs.psychic {
+    background-color: #f2f52a;
+} 
+.btn.btn-default.btn-xs.grass {
+    background-color: #c7ed8d;
+} 
+.btn.btn-default.btn-xs.ice {
+    background-color: #f3d17c;
+} 
+.btn.btn-default.btn-xs.dragon {
+    background-color: #b18201;
+} 
+.btn.btn-default.btn-xs.ghost {
+    background-color: #b881ec;
+} 
+.btn.btn-default.btn-xs.fairy {
+    background-color: #db6637;
+} 

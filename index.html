@@ -3,124 +3,15 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link rel="shortcut icon" href="img/favicon.ico">
     <title>Pokedex</title>
 
     <link rel="stylesheet" href="assets/bootstrap-3.3.6/css/bootstrap.min.css">
-
-    <style type="text/css">
-        h1 {
-            text-align: center;
-            font-size: 48px;
-        }
-        
-        h4 {
-            text-align: center;
-        }
-        
-        .thumbnail.list {
-            height: 200px;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .thumbnail.list:hover {
-            cursor: pointer;
-            background-color: rgba(75, 75, 75, 0.1);
-            border: 2px solid #777;
-        }
-        
-        .thumbnail.details {
-            height: 525px;
-            width: 250px;
-        }
-        
-        #pockemonLoadBtn {
-            width: 100%;
-        }
-        
-        #loadButtonPanel {
-            display: none;
-        }
-        
-        #loadingMain {
-            position: absolute;
-            background: white url('img/loading.gif') no-repeat center center;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 20001;
-        }
-        
-        #loadingButton {
-            display: none;
-        }
-
-        .btn.btn-default.btn-xs { 
-            text-transform: capitalize;
-        }
-        
-        .btn.btn-default.btn-xs.normal {
-            background-color: #fff;
-        }
-        .btn.btn-default.btn-xs.fire {
-            background-color: #c41208;
-        }
-        .btn.btn-default.btn-xs.bug {
-            background-color: #c45431;
-        }
-        .btn.btn-default.btn-xs.water {
-            background-color: #5bc0de;
-        }
-        .btn.btn-default.btn-xs.flying {
-            background-color: #2ee5f2;
-        }
-        .btn.btn-default.btn-xs.poison {
-            background-color: #6f8fe5;
-        }  
-        .btn.btn-default.btn-xs.steel {
-            background-color: #5c618b;
-        }   
-        .btn.btn-default.btn-xs.rock {
-            background-color: #f53c48;
-        }         
-        .btn.btn-default.btn-xs.ground {
-            background-color: #c9e1bd;
-        }           
-        .btn.btn-default.btn-xs.electric {
-            background-color: #f0ad4e;
-        }
-        .btn.btn-default.btn-xs.fighting {
-            background-color: #c237da;
-        }         
-        .btn.btn-default.btn-xs.dark {
-            background-color: #1203c8;
-        }        
-        .btn.btn-default.btn-xs.psychic {
-            background-color: #f2f52a;
-        }         
-        .btn.btn-default.btn-xs.grass {
-            background-color: #c7ed8d;
-        }         
-        .btn.btn-default.btn-xs.ice {
-            background-color: #f3d17c;
-        }         
-        .btn.btn-default.btn-xs.dragon {
-            background-color: #b18201;
-        }         
-        .btn.btn-default.btn-xs.ghost {
-            background-color: #b881ec;
-        }         
-        .btn.btn-default.btn-xs.fairy {
-            background-color: #db6637;
-        } 
-    </style>
-        
-
-
+    <link rel="stylesheet" href="assets/style.css">
+ 
     <script type="text/javascript" src="assets/jquery.min.js"></script>
     <script type="text/javascript" src="assets/bootstrap-3.3.6/js/bootstrap.min.js"></script>
-
+    
 </head>
 <body>
 
@@ -129,8 +20,11 @@
     <h1>Pokedex</h1>
 </div>  
     <div id="loadingMain" class="affix"></div>
-	
+    <div id='filters'>
+        <!-- Filter content -->
+    </div> <br/>	
     <div class="row">
+
 		<div class="col-md-9">
             <div id="dataList" class="row">
                 <!-- Pokemon list -->
@@ -156,155 +50,8 @@
 	</div>
 </div> 
 
-    <script type="text/javascript">
-        $(document).ready(function() {
+<script type="text/javascript" src="assets/main.js"></script>
 
-            var url = 'http://pokeapi.co/api/v1/pokemon/?limit=12';
-
-            function loadData() {
-                $.ajax({
-                    type: "GET",
-                    url: url,
-                    dataType: "json",
-                    success: function(data) {
-                        url = 'http://pokeapi.co' + data.meta.next;
-
-                        $.each(data.objects, function(index, pdata) {
-
-                            var pockemonName = pdata.name;
-                            var pockemonId = pdata.pkdx_id;
-                            var pockemonImage = pdata.pkdx_id;
-
-                            // get pockemonType data
-                            var ptypeArray = [],
-                                dataTypeArray = [];
-
-                            $.each(pdata.types, function(index, ptype) {
-                                var typeElement = '<a href="#" class="btn btn-default btn-xs ' + ptype.name+ '">' + ptype.name + '</a>&nbsp;';
-                                ptypeArray.push(typeElement);
-                                dataTypeArray.push(ptype.name);
-                            });
-                            
-                            ptypeArray.sort();
-                            dataTypeArray.sort();
-                            
-                            var pockemonType = ptypeArray.join('');
-                            var pokemonDataType = dataTypeArray.join(' ');
-
-                            var content = '<div class="col-md-4">' +
-                                    '<div class="thumbnail list" data-id="' + pockemonId + '" data-type="' + pokemonDataType + '">' +
-                                        '<img src="http://pokeapi.co/media/img/' + pockemonId + '.png" height="120" width="120" alt="Pockemon">' +
-                                            '<div class="caption">' +
-                                                '<h4>' + pockemonName + '</h4>' +
-                                                '<p>' + pockemonType + '</p>' +
-                                            '</div>' +
-                                    '</div>' +
-                                '</div>';
-
-                            $('#dataList').append(content);
-                        });
-
-                        // display load button
-                        $('#loadButtonPanel').css('display', 'block');
-                        $('#loadingMain').hide();
-                        $('#loadingButton').css('display', 'none');
-                        
-                        // scroll page to bottom
-                        var numItems = $('.thumbnail.list').length;
-                        if (numItems > 12) {
-                            $('html, body').animate({ scrollTop: $(document).height() }, 1000);
-                        };
-                    }
-                });
-            };
-
-            $('body').delegate('.thumbnail.list', 'click', function(e) {
-                e.preventDefault();
-
-                $('.thumbnail.list').css('border', '1px solid #ddd'); // reset border style to default
-                $(this).css('border', '2px solid #777'); // set custom border style
-
-                var dataPockemonId = $(this).data('id');
-
-                $.ajax({
-                    type: 'GET',
-                    url: 'http://pokeapi.co/api/v1/pokemon/' + dataPockemonId + '/',
-                    success: function(pockemonData) {
-
-                        var pokemonData = '<div class="thumbnail details">' + //delete affix
-                            '<img src="http://pokeapi.co/media/img/' + dataPockemonId + '.png" height="120" width="120" alt="Pockemon">' +
-                            '<div class="caption">' +
-                                '<h4>' + pockemonData.name + ' #' + dataPockemonId + '</h4>' +
-                                '<table class="table table-bordered">' +
-                                    '<thead>' +
-                                        '<tr>' +
-                                            '<th>Type</th>' +
-                                            '<th>Fire</th>' +
-                                        '</tr>' +
-                                    '</thead>' +
-                                    '<tbody>' +
-                                        '<tr>' +
-                                            '<td>Attack</td>' +
-                                            '<td>' + pockemonData.attack + '</td>' +
-                                        '</tr>' +
-                                        '<tr>' +
-                                            '<td>Defense</td>' +
-                                            '<td>' + pockemonData.defense + '</td>' +
-                                        '</tr>' +
-                                        '<tr>' +
-                                            '<td>HP</td>' +
-                                            '<td>' + pockemonData.hp + '</td>' +
-                                        '</tr>' +
-                                        '<tr>' +
-                                            '<td>SP Attack</td>' +
-                                            '<td>' + pockemonData.sp_atk + '</td>' +
-                                        '</tr>' +
-                                        '<tr>' +
-                                            '<td>SP Defense</td>' +
-                                            '<td>' + pockemonData.sp_def + '</td>' +
-                                        '</tr>' +
-                                        '<tr>' +
-                                            '<td>Speed</td>' +
-                                            '<td>' + pockemonData.speed + '</td>' +
-                                        '</tr>' +
-                                        '<tr>' +
-                                            '<td>Weight</td>' +
-                                            '<td>' + pockemonData.weight + '</td>' +
-                                        '</tr>' +
-                                        '<tr>' +
-                                            '<td>Total moves</td>' +
-                                            '<td>' + pockemonData.moves.length + '</td>' +
-                                        '</tr>' +
-                                    '</tbody>' +
-                                '</table>' +
-                            '</div>' +
-                            '</div>';
-                
-                        $('.thumbnail.details').remove(); // remove previous pokemon detail information
-                        $('#pokemonDetails').append(pokemonData);
-
-                        // scroll page to bottom when browser width <992
-                        var viewportWidth = $( window ).width();
-                        if (viewportWidth < 992) {
-                            $('.thumbnail.details').removeClass('affix')
-                            $('html, body').animate({ scrollTop: $(document).height() }, 1000);
-                        } else {
-                            $('.thumbnail.details').toggleClass('affix')
-                        }
-                    }
-                });
-            });
-
-            // Load More
-            $('#pockemonLoadBtn').on('click', function() {
-                $('#loadingButton').css('display', 'block');
-                loadData();
-            });
-
-            loadData();
-            
-        });
-    </script>
 </body>
 
 </html>
